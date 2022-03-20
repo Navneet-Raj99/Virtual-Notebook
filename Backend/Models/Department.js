@@ -8,6 +8,10 @@ const DepartmentSchema = new Schema({
      type:String,
      required:true
  },
+ head:{
+    type:String,
+    required:true
+ },
  email:{
      type:String,
      required:true,

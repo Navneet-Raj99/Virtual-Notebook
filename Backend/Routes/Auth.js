@@ -3,13 +3,62 @@
 const express = require("express");
 const router = express.Router();
 const user = require("../Models/User");
+const department = require("../Models/Department");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const fetchId = require("../Middleware/fetchId");
 // Create a user using POST
 //Including Validation
 const JWT = require("jsonwebtoken");
+/////////////////////
+router.post(
+  "/department",
+  [
+    body("email", "Enter a valid Email").isEmail(),
+    body("name", "ENter a valid name").isLength({ min: 3 }),
+    body("head", "ENter a valid Head Name").isLength({ min: 3 }),
+    body("password", "Password Must be atleast of 5 characters").isLength({
+      min: 5,
+    }),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    //     else{
+    //         const newuser=user(req.body);
+    //       newuser.save()
+    //     }
 
+    //Promise Implementation of sending data in mongo Db
+    let departmentcheck = await department.findOne({ email: req.body.email });
+    // console.log(newuser);
+    if (departmentcheck) {
+      return res.json({ error: "Already existing User" });
+    } else {
+      // console.log(newuser.email);
+      //Password Protection
+      ////////
+      const salt = await bcrypt.genSalt(10);// return random values
+      let securedPassword = await bcrypt.hash(req.body.password, salt);
+      ///////
+      departmentcheck = await user.create({
+        name: req.body.name,
+        email: req.body.email,
+        head: req.body.head,
+        password: securedPassword,
+      });
+      // console.log(newusercheck.id);
+      const fc = JWT.sign(departmentcheck.id, "mynameisnavneetraj");
+      // console.log(fc);
+      // res.json({ nice: "nice", dataStored: newusercheck });
+      res.json({ AUTH_TOKEN: fc });
+    }
+    //   res.send(newuser)
+  }
+);
+/////////////////////////////
 router.post(
   "/",
   [
