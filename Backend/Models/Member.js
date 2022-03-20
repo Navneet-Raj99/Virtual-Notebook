@@ -1,10 +1,5 @@
 /* 
 
-department name
-name
-password
-email
-date
 file
 leave application
 
@@ -23,10 +18,6 @@ name:{
      type:String,
      required:true
  },
- head:{
-    type:String,
-    required:true
- },
  email:{
      type:String,
      required:true,
@@ -40,7 +31,8 @@ name:{
 date:{
     type:Date,
     default:Date.now
-}
+},
+
 });
 const Department=mongoose.model('department',DepartmentSchema);
 Department.createIndexes();

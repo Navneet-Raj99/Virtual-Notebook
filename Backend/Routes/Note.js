@@ -1,7 +1,9 @@
+//jshint esversion:6
 const express=require('express');
 const router=express.Router();
 const notes=require('../Models/Notes')
 const JWT = require("jsonwebtoken");
+
 //End Point to add a  note
 router.post('/addnotes',async(req,res)=>
 {
