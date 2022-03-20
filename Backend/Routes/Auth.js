@@ -1,3 +1,5 @@
+//jshint esversion:6
+
 const express = require("express");
 const router = express.Router();
 const user = require("../Models/User");
@@ -55,8 +57,7 @@ router.post(
 );
 // End point For checking User already Registered OR not
 
-router.post(
-  "/checkuser",
+router.post("/checkuser",
   [
     body("email", "CheckEmail").isEmail(),
     // body("password", "Password Must be atleast of 5 characters").isLength({
@@ -67,7 +68,7 @@ router.post(
     let error = validationResult(req);
     // console.log(error);
     if (!error.isEmpty()) {
-      res.json("Sahi se information to daal bete");
+      res.json("Enter the correct Information");
     }
     // const[emailtocheck,passwordtocheck]=req.body;
     let emailtocheck = req.body.email;
