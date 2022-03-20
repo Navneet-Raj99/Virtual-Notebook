@@ -1,14 +1,8 @@
-/* 
-
-file
-leave application
-
-*/
 //jshint esversion:6
 
 const mongoose=require('mongoose');
 const { Schema } = mongoose;
-
+const notes = require('./Notes');
 const MemberSchema = new Schema({
 department_name:{
     type: String,
@@ -22,19 +16,19 @@ name:{
      type:String,
      required:true,
      unique:true
-    
  },
  password:{
     type:String,
     required:true
 },
-date:{
+ date:{
     type:Date,
     default:Date.now
 },
-
+ file: notes,
+ leaveApplication: notes
 });
-const Department=mongoose.model('department',DepartmentSchema);
-Department.createIndexes();
-module.exports=Department;
+const Member=mongoose.model('department',MemberSchema);
+Member.createIndexes();
+module.exports=Member;
 

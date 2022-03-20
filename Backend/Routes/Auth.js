@@ -43,7 +43,7 @@ router.post(
       const salt = await bcrypt.genSalt(10);// return random values
       let securedPassword = await bcrypt.hash(req.body.password, salt);
       ///////
-      departmentcheck = await user.create({
+      departmentcheck = await department.create({
         name: req.body.name,
         email: req.body.email,
         head: req.body.head,
