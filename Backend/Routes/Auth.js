@@ -248,7 +248,6 @@ router.delete("/deletedepartment", async (req, res) => {
   if (!auth_token) {
     return res.status(401).send("Wrong User");
   }
-
   let data = JWT.verify(auth_token, "mynameisnavneetraj");
   let olddepartment = await department.findByIdAndDelete(data);
   if (!olddepartment) {
@@ -283,6 +282,7 @@ router.post(
       let securedPassword = await bcrypt.hash(req.body.password, salt);
       ///////
       newmembercheck = await member.create({
+        departmentName: req.body.departmentName,
         name: req.body.name,
         email: req.body.email,
         password: securedPassword,
@@ -371,7 +371,7 @@ router.delete("/deletemember", async (req, res) => {
   }
   res.status(400).json({ result: "Memberdeleted", memberDeleted: oldmember });
 });
-route.get("/:_id/createfile", async(req,res) => {
+router.get("/:_id/createfile", async(req,res) => {
   var newnote = await notes.create({
     user: req.params._id,
     title: req.body.title,

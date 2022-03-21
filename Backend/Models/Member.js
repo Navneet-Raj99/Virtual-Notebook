@@ -4,7 +4,7 @@ const mongoose=require('mongoose');
 const { Schema } = mongoose;
 const notes = require('./Notes');
 const MemberSchema = new Schema({
-department_name:{
+departmentName:{
     type: String,
     required: true
 }, 
@@ -24,13 +24,9 @@ password:{
 date:{
     type:Date,
     default:Date.now
-},
-file: notes,
- leaveApplication: {
-     file_name: String
- }
+}
 });
-const Member=mongoose.model('department',MemberSchema);
+const Member=mongoose.model('member',MemberSchema);
 Member.createIndexes();
 module.exports=Member;
 
