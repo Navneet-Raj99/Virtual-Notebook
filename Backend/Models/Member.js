@@ -1,5 +1,5 @@
 //jshint esversion:6
-
+const path = require('path');
 const mongoose=require('mongoose');
 const { Schema } = mongoose;
 const notes = require('./Notes');
@@ -12,21 +12,23 @@ name:{
      type:String,
      required:true
  },
- email:{
+email:{
      type:String,
      required:true,
      unique:true
  },
- password:{
+password:{
     type:String,
     required:true
 },
- date:{
+date:{
     type:Date,
     default:Date.now
 },
- file: notes,
- leaveApplication: notes
+file: notes,
+ leaveApplication: {
+     file_name: String
+ }
 });
 const Member=mongoose.model('department',MemberSchema);
 Member.createIndexes();
